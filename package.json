@@ -1,11 +1,15 @@
 {
   "name": "electron-react",
+  "description": "grandenvnts lottery",
   "version": "0.1.0",
+  "author": {
+    "name": "Qin",
+    "email": "liuqin0821@gmail.com"
+  },
   "private": true,
   "main": "main.js",
   "homepage": ".",
   "dependencies": {
-    "electron": "^7.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0"
@@ -16,7 +20,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron-start": "electron .",
-    "package": "electron-packager ~/Lottery/build Lottery --all --out ~/ --version 1.7.10   "
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +39,20 @@
     ]
   },
   "devDependencies": {
-    "electron-packager": "^14.1.0"
-  }
+    "electron": "^7.1.1",
+    "electron-builder": "^22.1.0"
+  },
+  "build": {
+    "productName": "盛事抽奖",
+    "appId": "com.grandevents.lottery",
+    "copyright": "Copyright @ 2019 Qin",
+    "extends": null,
+    "mac": {
+      "category": "public.app-category.business",
+      "target": "dmg",
+      "type": "development",
+      "icon": "build/logo512.png"
+    }
+  },
+  "postinstall": "electron-builder install-app-deps"
 }

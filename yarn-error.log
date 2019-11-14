@@ -1,0 +1,85 @@
+Arguments: 
+  /usr/local/Cellar/node/12.12.0/bin/node /usr/local/Cellar/yarn/1.19.1/libexec/bin/yarn.js add electron-builder --dev
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Apple/bin:/Users/qin/ting/Invitation/Lottery/node_modules/.bin:/Users/qin/Library/Android/sdk/tools:/Users/qin/Library/Android/sdk/platform-tools:/Users/qin/flutter/bin
+
+Yarn version: 
+  1.19.1
+
+Node version: 
+  12.12.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/qin/ting/Invitation/Lottery/package.json: Unexpected token } in JSON at position 164
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:304:30)
+      at /usr/local/Cellar/yarn/1.19.1/libexec/lib/cli.js:315:13
+
+npm manifest: 
+  {
+    "name": "electron-react",
+    "description": "grandenvnts lottery",
+    "version": "0.1.0",
+    "author": {
+      "name": "Qin",
+      "email": "liuqin0821@gmail.com",
+    },
+    "private": true,
+    "main": "main.js",
+    "homepage": ".",
+    "dependencies": {
+      "electron": "^7.1.1",
+      "react": "^16.11.0",
+      "react-dom": "^16.11.0",
+      "react-scripts": "3.2.0"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "electron-start": "electron .",
+      "pack": "electron-builder --dir",
+      "dist": "electron-builder"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "devDependencies": {
+    },
+    "build": {
+      "productName": "盛事抽奖",
+      "appId": "com.grandevents.lottery",
+      "copyright": "Copyright @ 2019 Qin",
+      "mac": {
+        "category": "public.app-category.business",
+        "target": "dmg",
+        "type": "development",
+        "icon": "build/logo512.png"
+      }
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
