@@ -57,8 +57,13 @@
 <div id="main" class="wall">
   <div class="result-title">获奖名单</div>
   <div class="result-list" v-for="result in results">
+    <span v-if="result.length == 6">三等奖</span>
+    <span v-if="result.length == 4">二等奖</span>
+    <span v-if="result.length == 3">附加奖</span>
+    <span v-if="result.length == 2">一等奖</span>
+    <span v-if="result.length == 1">特等奖</span>
     <div v-for="item in result" v-if="item != 'null'">
-        {{item}}
+      {{item}}
     </div>
   </div>
 </div>
@@ -79,6 +84,8 @@
           str_results.push(localStorage.getItem(localStorage.key(i)));
         }
       }
+
+      console.log(str_results + 'aaa');
       // 分割每个string, 并将</br>换成空格
       let results = [];
       for (let nameList of str_results) {
@@ -88,8 +95,8 @@
       }
 
       // 根据长度进行排序，名单短的放在前面
-      results = results.sort((x, y) => { return x.length - y.length;});
-      console.log(results);
+      results = results.sort((x, y) => { return y.length - x.length;});
+      console.log(results + 'bbb');
       this.results = results;
     },
   });
