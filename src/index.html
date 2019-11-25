@@ -274,7 +274,8 @@
               return;
             }
             $('#result').css('display', 'block').html('<span>' + ret.join('</span><span>') + '</span>');
-            TagCanvas.Reload('myCanvas');
+            // reload会卡一会，但是可以标记已抽中的为金色
+            // TagCanvas.Reload('myCanvas');
             setTimeout(function () {
               localStorage.setItem(new Date().toString(), JSON.stringify(ret));
               $('#main').addClass('mask');
