@@ -12,7 +12,6 @@ const url = require('url');
 let showWindow;
 
 function createWindow () {
-//创建浏览器窗口,宽高自定义具体大小你开心就好
   showWindow = new BrowserWindow({
     minWidth: 800,
     minHeight: 600,
