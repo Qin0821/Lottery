@@ -12,13 +12,33 @@ function keyDown (e) {
   var keyName = String.fromCharCode(currKey);
 
   console.log('按键码: ' + currKey + ' 字符: ' + keyName);
-  if (currKey == 48) {
+  if (currKey === 48) {
     // 0 -> 重置
     reset();
-  } else if (currKey > 48 && currKey < 58) {
-    // 1 - 9 设置抽奖人数
-    onClick(keyName);
-  } else if (currKey === 13) {
+  } else if (currKey === 49) {
+    // 1 -> 一等奖
+    onClick(5, 1);
+  } else if (currKey === 50) {
+    // 2 -> 二等奖
+    onClick(5, 2);
+  } else if (currKey === 51) {
+    // 3 -> 三等奖
+    onClick(10, 3);
+  } else if (currKey === 52) {
+    // 4 -> 四等奖
+    onClick(25, 4);
+  } else if (currKey === 53) {
+    // 5 -> 五等奖
+    onClick(30, 5);
+  } else if (currKey === 54) {
+    // 6 -> 特等奖
+    onClick(1, 0);
+  }
+    // else if (currKey > 48 && currKey < 58) {
+    //   // 1 - 9 设置抽奖人数
+    //   onClick(keyName);
+  // }
+  else if (currKey === 13) {
     // enter 开始/停止抽奖
     toggle();
   } else if (currKey === 27) {

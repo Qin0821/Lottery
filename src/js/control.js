@@ -5,6 +5,7 @@
  */
 (function () {
   var choosed = JSON.parse(localStorage.getItem('choosed')) || {};
+  console.log(localStorage);
   console.log(choosed);
   var speed = function () {
     return [ 0.1 * Math.random() + 0.01, -(0.1 * Math.random() + 0.01) ];
@@ -23,7 +24,7 @@
     html.push('</ul>');
     return html.join('');
   };
-  var lottery = function (count) {
+  var lottery = function (count, level) {
     var list = canvas.getElementsByTagName('a');
     var color = 'yellow';
     var ret = member
@@ -45,6 +46,12 @@
         list[m.index].style.color = color;
         return /*m.no + '<br/>' +*/ m.name;
       });
+    // const levelChoose = {
+    //   level: level,
+    //   data: choosed,
+    // };
+    // console.log(levelChoose);
+    // console.log(JSON.stringify(levelChoose));
     localStorage.setItem('choosed', JSON.stringify(choosed));
     return ret;
   };
@@ -60,7 +67,8 @@
       running: false,
       btns: [
         6, 4, 3, 2, 1
-      ]
+      ],
+      level: 5,
     },
     mounted () {
       canvas.innerHTML = createHTML();
@@ -82,15 +90,17 @@
           location.reload(true);
         }
       },
-      onClick: function (num) {
+      onClick: function (num, level) {
         $('#result').css('display', 'none');
         $('#main').removeClass('mask');
         this.selected = num;
+        this.level = level;
+        window.level = level;
       },
       toggle: function () {
         if (this.running) {
           TagCanvas.SetSpeed('myCanvas', speed());
-          var ret = lottery(this.selected);
+          var ret = lottery(this.selected, this.level);
           if (ret.length === 0) {
             $('#result').css('display', 'block').html('<span>已抽完</span>');
             return;
@@ -98,7 +108,8 @@
           $('#result').css('display', 'block').html('<span>' + ret.join('</span><span>') + '</span>');
           // TagCanvas.Reload('myCanvas');
           setTimeout(function () {
-            localStorage.setItem(new Date().toString(), JSON.stringify(ret));
+            localStorage.setItem(new Date().toString(), JSON.stringify({ level: window.level, data: ret }));
+            // localStorage.setItem(window.level.toString(), JSON.stringify(ret));
             $('#main').addClass('mask');
           }, 300);
         } else {

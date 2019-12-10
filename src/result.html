@@ -46,7 +46,7 @@
     .result-title {
       text-align: center;
       color: #4de7c8;
-      font-size: 40px;
+      font-size: 40px; color: gold;
       margin-top: 100px;
       font-family: '幼圆';
     }
@@ -57,21 +57,21 @@
 <div id="main" class="wall">
   <div class="result-title">获奖名单</div>
   <div class="result-list" v-for="result in results">
-<!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
-    <span v-if="result.length == 30">五等奖</span>
-<!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
-    <span v-if="result.length == 25">四等奖</span>
-<!--  电压锅（价值2000）  -->
-<!--  小米 扫地机（价值2000）  -->
-    <span v-if="result.length == 10">三等奖</span>
-<!--  戴森 吸尘器（价值4000）  -->
-<!--  德龙 咖啡机（价值4000）  -->
-    <span v-if="result.length == 5">二等奖</span>
-<!--  20周年限量定制礼品（价值7000）  -->
-    <span v-if="result.length == 5">一等奖</span>
-<!--  10000元旅游金+5天带薪年假  -->
-    <span v-if="result.length == 1">特等奖</span>
-    <div v-for="item in result" v-if="item != 'null'">
+    <!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
+    <span v-if="result.level == 5" style="margin-bottom: 40px; color: gold; color: gold">五等奖</span>
+    <!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
+    <span v-if="result.level == 4" style="margin-bottom: 40px; color: gold">四等奖</span>
+    <!--  电压锅（价值2000）  -->
+    <!--  小米 扫地机（价值2000）  -->
+    <span v-if="result.level == 3" style="margin-bottom: 40px; color: gold">三等奖</span>
+    <!--  戴森 吸尘器（价值4000）  -->
+    <!--  德龙 咖啡机（价值4000）  -->
+    <span v-if="result.level == 2" style="margin-bottom: 40px; color: gold">二等奖</span>
+    <!--  20周年限量定制礼品（价值7000）  -->
+    <span v-if="result.level == 1" style="margin-bottom: 40px; color: gold">一等奖</span>
+    <!--  10000元旅游金+5天带薪年假  -->
+    <span v-if="result.level == 0" style="margin-bottom: 40px; color: gold">特等奖</span>
+    <div v-for="item in result.data" v-if="item != 'null'">
       {{item}}
     </div>
   </div>
@@ -86,6 +86,7 @@
     mounted () {
       let vm = this;
       let locals = window.localStorage;
+      console.log(locals);
       let str_results = [];
       // 遍历(排除choosed)
       for (let i = 0; i < localStorage.length; i++) {
@@ -93,18 +94,22 @@
           str_results.push(localStorage.getItem(localStorage.key(i)));
         }
       }
-
-      console.log(str_results + 'aaa');
       // 分割每个string, 并将</br>换成空格
       let results = [];
       for (let nameList of str_results) {
         let temp = JSON.parse(nameList);
-        temp = temp.map(item => {return item.replace('<br/>', ' ');});
-        results.push(temp);
+        const data = temp.data.map(item => {return item.replace('<br/>', ' ');});
+        const a = {
+          level: temp.level,
+          data: data,
+        };
+        results.push(a);
       }
 
       // 根据长度进行排序，名单短的放在前面
-      results = results.sort((x, y) => { return y.length - x.length;});
+      results = results.sort((x, y) => {
+        return x.level - y.level;
+      });
       console.log(results + 'bbb');
       this.results = results;
     },
@@ -112,6 +117,7 @@
 </script>
 <script type="text/javascript">
   document.onkeydown = keyDown;
+
   function keyDown (e) {
     var currKey = 0, e = e || event;
 
