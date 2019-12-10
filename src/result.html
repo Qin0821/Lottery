@@ -57,11 +57,19 @@
 <div id="main" class="wall">
   <div class="result-title">获奖名单</div>
   <div class="result-list" v-for="result in results">
+<!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
     <span v-if="result.length == 30">五等奖</span>
+<!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
     <span v-if="result.length == 25">四等奖</span>
+<!--  电压锅（价值2000）  -->
+<!--  小米 扫地机（价值2000）  -->
     <span v-if="result.length == 10">三等奖</span>
-<!--    <span v-if="result.length == 5">二等奖</span>-->
+<!--  戴森 吸尘器（价值4000）  -->
+<!--  德龙 咖啡机（价值4000）  -->
+    <span v-if="result.length == 5">二等奖</span>
+<!--  20周年限量定制礼品（价值7000）  -->
     <span v-if="result.length == 5">一等奖</span>
+<!--  10000元旅游金+5天带薪年假  -->
     <span v-if="result.length == 1">特等奖</span>
     <div v-for="item in result" v-if="item != 'null'">
       {{item}}

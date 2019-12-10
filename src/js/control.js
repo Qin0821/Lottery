@@ -10,7 +10,7 @@
     return [ 0.1 * Math.random() + 0.01, -(0.1 * Math.random() + 0.01) ];
   };
   var getKey = function (item) {
-    return item.no + '-' + item.phone;
+    return item.no + '-' + item.name;
   };
   var createHTML = function () {
     var html = [ '<ul>' ];
@@ -18,7 +18,7 @@
       item.index = index;
       var key = getKey(item);
       var color = choosed[key] ? 'yellow' : 'white';
-      html.push('<li><a href="#" style="color: ' + color + ';">' + item.no + '</a></li>');
+      html.push('<li><a href="#" style="color: ' + color + ';">' + item.name + '</a></li>');
     });
     html.push('</ul>');
     return html.join('');
@@ -43,7 +43,7 @@
       .map(function (m) {
         choosed[getKey(m)] = 1;
         list[m.index].style.color = color;
-        return /*m.no + '<br/>' +*/ m.no;
+        return /*m.no + '<br/>' +*/ m.name;
       });
     localStorage.setItem('choosed', JSON.stringify(choosed));
     return ret;
