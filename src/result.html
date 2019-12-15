@@ -42,6 +42,37 @@
       font-family: '幼圆';
     }
 
+    .result-option {
+      text-align: center;
+      color: gold;
+      font-size: 30px;
+      line-height: 50px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      font-family: '幼圆';
+    }
+
+    .result-item-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: fit-content;
+      max-height: 100vh;
+      flex-flow: row wrap;
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+
+    .result-item {
+      text-align: center;
+      color: #4de7c8;
+      font-size: 30px;
+      line-height: 50px;
+      height: fit-content;
+      margin: 20px;
+      font-family: '幼圆';
+    }
+
     .result-title {
       text-align: center;
       color: #4de7c8;
@@ -56,94 +87,103 @@
 <body>
 <div id="main" class="wall">
   <div class="result-title">获奖名单</div>
-  <div>{{result}}</div>
+  <!--  <div>{{result}}</div>-->
   <!--  <div class="result-list" v-for="result in results">-->
-  <!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
-  <span v-if="result.level == 5"
-    style="margin-bottom: 40px; color: gold; color: gold">五等奖</span>
-  <!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
-  <span v-if="result.level == 4" style="margin-bottom: 40px; color: gold">四等奖</span>
-  <!--  电压锅（价值2000）  -->
-  <!--  小米 扫地机（价值2000）  -->
-  <span v-if="result.level == 3" style="margin-bottom: 40px; color: gold">三等奖</span>
-  <!--  戴森 吸尘器（价值4000）  -->
-  <!--  德龙 咖啡机（价值4000）  -->
-  <span v-if="result.level == 2" style="margin-bottom: 40px; color: gold">二等奖</span>
-  <!--  20周年限量定制礼品（价值7000）  -->
-  <span v-if="result.level == 1" style="margin-bottom: 40px; color: gold">一等奖</span>
-  <!--  10000元旅游金+5天带薪年假  -->
-  <span v-if="result.level == 0" style="margin-bottom: 40px; color: gold">特等奖</span>
-  <div v-for="item in result.data" v-if="item != 'null'">
-    {{item}}
+  <div class="result-option">
+    <!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
+    <span v-if="result.level == 5"
+      style="margin-bottom: 40px; color: gold; color: gold">五等奖</span>
+    <!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
+    <span v-if="result.level == 4">四等奖</span>
+    <!--  电压锅（价值2000）  -->
+    <!--  小米 扫地机（价值2000）  -->
+    <span v-if="result.level == 3">三等奖</span>
+    <!--  戴森 吸尘器（价值4000）  -->
+    <!--  德龙 咖啡机（价值4000）  -->
+    <span v-if="result.level == 2">二等奖</span>
+    <!--  20周年限量定制礼品（价值7000）  -->
+    <span v-if="result.level == 1">一等奖</span>
+    <!--  10000元旅游金+5天带薪年假  -->
+    <span v-if="result.level == 0">特等奖</span>
+    <!--    <div v-for="item in result.data" v-if="item != 'null'">-->
+    <!--      {{item}}-->
+    <!--    </div>-->
+  </div>
+  <div class="result-item-container">
+    <div class="result-item" v-for="item in result.data" v-if="item != 'null'">
+      {{item}}
+    </div>
   </div>
   <!--  </div>-->
 </div>
 <script type="text/javascript" src="js/vue.js"></script>
-<script type="text/javascript">
-  new Vue({
-    el: '#main',
-    data: {
-      results: [],
-      result: {},
-      level: 1,
-    },
-    mounted () {
-      window.addEventListener('keyup', this.handleKeyup);
-      // window.onResultClick = this.onResultClick;
+<script type="text/javascript" src="js/test.js"></script>
+<script type="text/javascript" src="js/resultKeyDown.js"></script>
+<!--<script type="text/javascript">-->
+<!--  new Vue({-->
+<!--    el: '#main',-->
+<!--    data: {-->
+<!--      results: [],-->
+<!--      result: {},-->
+<!--      level: 1,-->
+<!--    },-->
+<!--    mounted () {-->
+<!--      window.addEventListener('keyup', this.handleKeyup);-->
+<!--      // window.onResultClick = this.onResultClick;-->
 
-      let vm = this;
-      let locals = window.localStorage;
-      console.log(locals);
-      let str_results = [];
-      // 遍历(排除choosed)
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== 'choosed') {
-          str_results.push(localStorage.getItem(localStorage.key(i)));
-        }
-      }
-      // 分割每个string, 并将</br>换成空格
-      let results = [];
-      for (let nameList of str_results) {
-        let temp = JSON.parse(nameList);
-        const data = temp.data.map(item => {return item.replace('<br/>', ' ');});
-        const a = {
-          level: temp.level,
-          data: data,
-        };
-        if (temp.level === this.level) {
-          this.result = a;
-        }
-        results.push(a);
-      }
+<!--      let vm = this;-->
+<!--      let locals = window.localStorage;-->
+<!--      console.log(locals);-->
+<!--      let str_results = [];-->
+<!--      // 遍历(排除choosed)-->
+<!--      for (let i = 0; i < localStorage.length; i++) {-->
+<!--        if (localStorage.key(i) !== 'choosed') {-->
+<!--          str_results.push(localStorage.getItem(localStorage.key(i)));-->
+<!--        }-->
+<!--      }-->
+<!--      // 分割每个string, 并将</br>换成空格-->
+<!--      let results = [];-->
+<!--      for (let nameList of str_results) {-->
+<!--        let temp = JSON.parse(nameList);-->
+<!--        const data = temp.data.map(item => {return item.replace('<br/>', ' ');});-->
+<!--        const a = {-->
+<!--          level: temp.level,-->
+<!--          data: data,-->
+<!--        };-->
+<!--        if (temp.level === this.level) {-->
+<!--          this.result = a;-->
+<!--        }-->
+<!--        results.push(a);-->
+<!--      }-->
 
-      // 根据长度进行排序，名单短的放在前面
-      results = results.sort((x, y) => {
-        return x.level - y.level;
-      });
-      console.log(results + 'bbb');
-      this.results = results;
-    },
-    method: {
-      onResultClick: function (level) {
-        this.level = level;
-        for (let result of this.results) {
-          if (result.level === level) {}
-          this.result = result;
-        }
-      },
-      handleKeyup (event) {
-        const e = event || window.event || arguments.callee.caller.arguments[0];
-        if (!e) return;
-        const { key, keyCode } = e;
-        console.log(keyCode);
-        console.log(key);
-      },
-    },
-    destroyed () {
-      window.removeEventListener('keyup', this.handleKeyup);
-    },
-  });
-</script>
+<!--      // 根据长度进行排序，名单短的放在前面-->
+<!--      results = results.sort((x, y) => {-->
+<!--        return x.level - y.level;-->
+<!--      });-->
+<!--      console.log(results + 'bbb');-->
+<!--      this.results = results;-->
+<!--    },-->
+<!--    method: {-->
+<!--      onResultClick: function (level) {-->
+<!--        this.level = level;-->
+<!--        for (let result of this.results) {-->
+<!--          if (result.level === level) {}-->
+<!--          this.result = result;-->
+<!--        }-->
+<!--      },-->
+<!--      handleKeyup (event) {-->
+<!--        const e = event || window.event || arguments.callee.caller.arguments[0];-->
+<!--        if (!e) return;-->
+<!--        const { key, keyCode } = e;-->
+<!--        console.log(keyCode);-->
+<!--        console.log(key);-->
+<!--      },-->
+<!--    },-->
+<!--    destroyed () {-->
+<!--      window.removeEventListener('keyup', this.handleKeyup);-->
+<!--    },-->
+<!--  });-->
+<!--</script>-->
 <!--<script type="text/javascript">-->
 <!--  document.onkeydown = keyDown;-->
 
