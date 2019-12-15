@@ -59,8 +59,8 @@
       height: fit-content;
       max-height: 100vh;
       flex-flow: row wrap;
-      padding-left: 150px;
-      padding-right: 150px;
+      padding-left: 10%;
+      padding-right: 10%;
     }
 
     .result-item {
@@ -109,15 +109,17 @@
     <!--      {{item}}-->
     <!--    </div>-->
   </div>
-  <div class="result-item-container">
-    <div class="result-item" v-for="item in result.data" v-if="item != 'null'">
+  <!--  <div class="result-item-container">-->
+  <div class="result-item-container" v-for="result in results">
+    <div class="result-item" v-for="item in result.data" v-if="result.level == level">
       {{item}}
     </div>
+    <!--    </div>-->
   </div>
   <!--  </div>-->
 </div>
 <script type="text/javascript" src="js/vue.js"></script>
-<script type="text/javascript" src="js/test.js"></script>
+<script type="text/javascript" src="js/resultControl.js"></script>
 <script type="text/javascript" src="js/resultKeyDown.js"></script>
 <!--<script type="text/javascript">-->
 <!--  new Vue({-->

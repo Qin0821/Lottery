@@ -53,7 +53,6 @@
     },
     methods: {
       onClick: function (level) {
-        console.log(level);
         let r = {
           level: level
         };
@@ -62,10 +61,10 @@
             r = result;
           }
         }
-        this.result = r
-        console.log(this.result)
+        this.result = r;
         this.level = level;
-        window.level = level;
+        console.log(this.result);
+        console.log(this.level);
       },
     }
   });

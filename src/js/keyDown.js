@@ -26,10 +26,12 @@ function keyDown (e) {
     onClick(10, 3);
   } else if (currKey === 52) {
     // 4 -> 四等奖
-    onClick(25, 4);
+    onClick(10, 4);
+  } else if (currKey === 82) {
+    onClick(5, 4);
   } else if (currKey === 53) {
     // 5 -> 五等奖
-    onClick(30, 5);
+    onClick(10, 5);
   } else if (currKey === 54) {
     // 6 -> 特等奖
     onClick(1, 0);
