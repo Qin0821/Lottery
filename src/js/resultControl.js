@@ -14,7 +14,7 @@
       result: {
         data: '',
       },
-      level: 1,
+      level: 0,
     },
     mounted () {
       window.onClick = this.onClick;
