@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
   <meta name="screen-orientation" content="portrait">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -46,7 +45,8 @@
     .result-title {
       text-align: center;
       color: #4de7c8;
-      font-size: 40px; color: gold;
+      font-size: 40px;
+      color: gold;
       margin-top: 100px;
       font-family: '幼圆';
     }
@@ -56,34 +56,41 @@
 <body>
 <div id="main" class="wall">
   <div class="result-title">获奖名单</div>
-  <div class="result-list" v-for="result in results">
-    <!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
-    <span v-if="result.level == 5" style="margin-bottom: 40px; color: gold; color: gold">五等奖</span>
-    <!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
-    <span v-if="result.level == 4" style="margin-bottom: 40px; color: gold">四等奖</span>
-    <!--  电压锅（价值2000）  -->
-    <!--  小米 扫地机（价值2000）  -->
-    <span v-if="result.level == 3" style="margin-bottom: 40px; color: gold">三等奖</span>
-    <!--  戴森 吸尘器（价值4000）  -->
-    <!--  德龙 咖啡机（价值4000）  -->
-    <span v-if="result.level == 2" style="margin-bottom: 40px; color: gold">二等奖</span>
-    <!--  20周年限量定制礼品（价值7000）  -->
-    <span v-if="result.level == 1" style="margin-bottom: 40px; color: gold">一等奖</span>
-    <!--  10000元旅游金+5天带薪年假  -->
-    <span v-if="result.level == 0" style="margin-bottom: 40px; color: gold">特等奖</span>
-    <div v-for="item in result.data" v-if="item != 'null'">
-      {{item}}
-    </div>
+  <div>{{result}}</div>
+  <!--  <div class="result-list" v-for="result in results">-->
+  <!--  Altips 礼包（价值500）电动牙刷+护颈带+焖烧杯+香薰机  -->
+  <span v-if="result.level == 5"
+    style="margin-bottom: 40px; color: gold; color: gold">五等奖</span>
+  <!--  Altips 豪华礼包（价值1000）TOKI拉杆箱+保温壶+充电宝  -->
+  <span v-if="result.level == 4" style="margin-bottom: 40px; color: gold">四等奖</span>
+  <!--  电压锅（价值2000）  -->
+  <!--  小米 扫地机（价值2000）  -->
+  <span v-if="result.level == 3" style="margin-bottom: 40px; color: gold">三等奖</span>
+  <!--  戴森 吸尘器（价值4000）  -->
+  <!--  德龙 咖啡机（价值4000）  -->
+  <span v-if="result.level == 2" style="margin-bottom: 40px; color: gold">二等奖</span>
+  <!--  20周年限量定制礼品（价值7000）  -->
+  <span v-if="result.level == 1" style="margin-bottom: 40px; color: gold">一等奖</span>
+  <!--  10000元旅游金+5天带薪年假  -->
+  <span v-if="result.level == 0" style="margin-bottom: 40px; color: gold">特等奖</span>
+  <div v-for="item in result.data" v-if="item != 'null'">
+    {{item}}
   </div>
+  <!--  </div>-->
 </div>
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript">
   new Vue({
     el: '#main',
     data: {
-      results: []
+      results: [],
+      result: {},
+      level: 1,
     },
     mounted () {
+      window.addEventListener('keyup', this.handleKeyup);
+      // window.onResultClick = this.onResultClick;
+
       let vm = this;
       let locals = window.localStorage;
       console.log(locals);
@@ -103,6 +110,9 @@
           level: temp.level,
           data: data,
         };
+        if (temp.level === this.level) {
+          this.result = a;
+        }
         results.push(a);
       }
 
@@ -113,21 +123,58 @@
       console.log(results + 'bbb');
       this.results = results;
     },
+    method: {
+      onResultClick: function (level) {
+        this.level = level;
+        for (let result of this.results) {
+          if (result.level === level) {}
+          this.result = result;
+        }
+      },
+      handleKeyup (event) {
+        const e = event || window.event || arguments.callee.caller.arguments[0];
+        if (!e) return;
+        const { key, keyCode } = e;
+        console.log(keyCode);
+        console.log(key);
+      },
+    },
+    destroyed () {
+      window.removeEventListener('keyup', this.handleKeyup);
+    },
   });
 </script>
-<script type="text/javascript">
-  document.onkeydown = keyDown;
+<!--<script type="text/javascript">-->
+<!--  document.onkeydown = keyDown;-->
 
-  function keyDown (e) {
-    var currKey = 0, e = e || event;
+<!--  function keyDown (e) {-->
+<!--    var currKey = 0, e = e || event;-->
 
-    currKey = e.keyCode || e.which || e.charCode;
+<!--    currKey = e.keyCode || e.which || e.charCode;-->
 
-    var keyName = String.fromCharCode(currKey);
-    if (currKey === 189) {
-      window.location.href = 'index.html';
-    }
-  }
-</script>
+<!--    var keyName = String.fromCharCode(currKey);-->
+<!--    if (currKey === 49) {-->
+<!--      // 1 -> 一等奖-->
+<!--      onResultClick(1);-->
+<!--    } else if (currKey === 50) {-->
+<!--      // 2 -> 二等奖-->
+<!--      onResultClick(2);-->
+<!--    } else if (currKey === 51) {-->
+<!--      // 3 -> 三等奖-->
+<!--      onResultClick(3);-->
+<!--    } else if (currKey === 52) {-->
+<!--      // 4 -> 四等奖-->
+<!--      onResultClick(4);-->
+<!--    } else if (currKey === 53) {-->
+<!--      // 5 -> 五等奖-->
+<!--      onResultClick(5);-->
+<!--    } else if (currKey === 54) {-->
+<!--      // 6 -> 特等奖-->
+<!--      onResultClick(0);-->
+<!--    } else if (currKey === 189) {-->
+<!--      window.location.href = 'index.html';-->
+<!--    }-->
+<!--  }-->
+<!--</script>-->
 </body>
 </html>

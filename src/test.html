@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+  <meta name="screen-orientation" content="portrait">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+  <title>年会抽奖小程序</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/wall.css">
+  <style type="text/css">
+    .wall {
+      overflow: scroll;
+      background-repeat: repeat;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+
+    .mask {
+      -webkit-filter: blur(5px);
+      filter: blur(5px);
+    }
+
+    #main {
+      -webkit-transition: all 1s;
+      transition: all 1s;
+    }
+
+    .result-list {
+      text-align: center;
+      color: #4de7c8;
+      font-size: 30px;
+      line-height: 50px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      font-family: '幼圆';
+    }
+
+    .result-title {
+      text-align: center;
+      color: #4de7c8;
+      font-size: 40px;
+      color: gold;
+      margin-top: 100px;
+      font-family: '幼圆';
+    }
+
+  </style>
+</head>
+<body>
+<div id="main" class="wall">
+  <div class="result-title">获奖名单</div>
+</div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#main',
+    data: {
+      results: [],
+      result: {},
+      level: 1,
+    },
+    mounted () {
+      // window.addEventListener('keyup', this.handleKeyup);
+      document.onkeydown = this.handleKeyup;
+
+      window.onClick = this.onClick;
+    },
+    method: {
+      handleKeyup (event) {
+        console.log(event)
+        const e = event || window.event || arguments.callee.caller.arguments[0];
+        if (!e) return;
+        const { key, keyCode } = e;
+        console.log(keyCode);
+        console.log(key);
+      },
+      alert(msg) {
+        alert(msg)
+      },
+      onClick() {
+        alert('aaa')
+      }
+    },
+    destroyed () {
+      // window.removeEventListener('keyup', this.handleKeyup);
+    },
+  });
+</script>
+<script type="text/javascript" src="js/test.js"></script>
+<!--<script type="text/javascript" src="js/resultKeyDown.js"></script>-->
+<script type="text/javascript" src="js/keyDown.js"></script>
+</body>
+</html>
